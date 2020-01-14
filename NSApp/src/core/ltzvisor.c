@@ -54,7 +54,8 @@ extern struct nsguest_conf_entry nsguest_config;
 /** NS_Guest context */
 tzmachine NS_Guest __attribute__ ((aligned (4))) __attribute__ ((section (".bss")));
 
-
+extern void hw_init();
+extern void _mon_smc_handler();
 /**
  * LTZVisor main entry point
  *
@@ -68,5 +69,11 @@ void ltzvisor_main(void){
 		printk(" -> Hello World Vikas !!! ... \n\t", ARCH);
 		i--;
 	};
+	printk(" -> Throw an interrupt to Secure OS \n\t" );
+    hw_init();
+    printk(" -> Secure VM running printk :P \n\t" );
+    printk(" -> Secure VM running printk 2 :P \n\t" );
+    _mon_smc_handler(); 	
+	printk(" -> Switch back to Non Secure VM running printk 3 :P \n\t" );
 }
 
